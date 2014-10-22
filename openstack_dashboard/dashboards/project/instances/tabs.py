@@ -25,6 +25,9 @@ from openstack_dashboard import api
 from openstack_dashboard.dashboards.project.instances import console
 
 
+AVAILABLE_TABS = settings.HORIZON_CONFIG['instance_detail_tabs']
+
+
 class OverviewTab(tabs.Tab):
     name = _("Overview")
     slug = "overview"
@@ -33,6 +36,9 @@ class OverviewTab(tabs.Tab):
 
     def get_context_data(self, request):
         return {"instance": self.tab_group.kwargs['instance']}
+
+    def allowed(self, request):
+        return self.slug in AVAILABLE_TABS
 
 
 class LogTab(tabs.Tab):
@@ -52,6 +58,9 @@ class LogTab(tabs.Tab):
             exceptions.handle(request, ignore=True)
         return {"instance": instance,
                 "console_log": data}
+
+    def allowed(self, request):
+        return self.slug in AVAILABLE_TABS
 
 
 class ConsoleTab(tabs.Tab):
@@ -74,7 +83,8 @@ class ConsoleTab(tabs.Tab):
     def allowed(self, request):
         # The ConsoleTab is available if settings.CONSOLE_TYPE is not set at
         # all, or if it's set to any value other than None or False.
-        return bool(getattr(settings, 'CONSOLE_TYPE', True))
+        return bool(getattr(settings, 'CONSOLE_TYPE', True)) and \
+            self.slug in AVAILABLE_TABS
 
 
 class AuditTab(tabs.TableTab):
@@ -94,6 +104,9 @@ class AuditTab(tabs.TableTab):
                               _('Unable to retrieve instance action list.'))
 
         return sorted(actions, reverse=True, key=lambda y: y.start_time)
+
+    def allowed(self, request):
+        return self.slug in AVAILABLE_TABS
 
 
 class InstanceDetailTabs(tabs.TabGroup):

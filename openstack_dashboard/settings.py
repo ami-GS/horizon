@@ -88,6 +88,18 @@ HORIZON_CONFIG = {
     'js_files': [],
 }
 
+
+# Instance detail tab group
+# Specify which tabs to show in the tab group for Instance Details.
+# Available values are 'overview', 'log', 'console', 'audit'.
+HORIZON_CONFIG['instance_detail_tabs'] = (
+    'overview',
+    'log',
+    'console',
+    'audit',
+)
+
+
 # Set to True to allow users to upload images to glance via Horizon server.
 # When enabled, a file form field will appear on the create image form.
 # See documentation for deployment considerations.

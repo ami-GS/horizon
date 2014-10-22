@@ -69,6 +69,22 @@ HORIZON_CONFIG = {
     'js_files': [],
 }
 
+# Instance detail tab group
+# Specify which tabs to show in the tab group for Instance Details.
+# Available values are 'overview', 'log', 'console', 'audit'.
+# You can hide the 'LogTab' using this config:
+# HORIZON_CONFIG['instance_detail_tabs'] = (
+#     'overview',
+#     'console',
+#     'audit',
+# )
+HORIZON_CONFIG['instance_detail_tabs'] = (
+    'overview',
+    'log',
+    'console',
+    'audit',
+)
+
 # Specify a regular expression to validate user passwords.
 # HORIZON_CONFIG["password_validator"] = {
 #     "regex": '.*',
